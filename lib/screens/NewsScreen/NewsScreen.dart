@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:news/Shared/network/remote/API_manager.dart';
+import 'package:news/provider/settingprovider.dart';
+import 'package:news/screens/NewsScreen/Surces_artcles.dart';
 import 'package:news/screens/SettingScreen.dart';
+import 'package:provider/provider.dart';
 
-class newsScreen extends StatelessWidget {
+class newsScreen extends StatefulWidget {
   static const String routeName = 'home';
+
+  @override
+  State<newsScreen> createState() => _newsScreenState();
+}
+
+class _newsScreenState extends State<newsScreen> {
+  int currentindex = 0;
+  bool vis = false;
 
   @override
   Widget build(BuildContext context) {
@@ -78,11 +89,38 @@ class newsScreen extends StatelessWidget {
         title: Text('News'),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+          IconButton(
+            onPressed: () {
+              vis = !vis;
+              setState(() {});
+            },
+            icon:
+                vis == true ? Icon(Icons.cancel_outlined) : Icon(Icons.search),
+            color: Colors.black,
+          ),
           SizedBox(
             width: 20,
           ),
         ],
+
+
+        flexibleSpace: Center(
+          child: Container(
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(25)),
+            margin: const EdgeInsets.only(
+                top: 35.0, bottom: 15, left: 50, right: 20),
+            child: Visibility(
+              visible: vis,
+              child: TextFormField(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(borderSide: BorderSide.none)),
+              ),
+            ),
+          ),
+        ),
+
+
         shape: OutlineInputBorder(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(50),
@@ -108,12 +146,7 @@ class newsScreen extends StatelessWidget {
               return Center(child: Text('Something went wrong'));
             }
             var soruces = snapshot.data?.sources ?? [];
-            return ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Text(soruces[index].name ?? '');
-              },
-            );
+            return SourcesItemClick(soruces);
           },
         ),
       ),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:news/provider/settingprovider.dart';
-import 'package:news/screens/NewsScreen.dart';
+import 'package:news/screens/NewsScreen/NewsScreen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news/screens/SettingScreen.dart';
+import 'package:news/screens/articleScreen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
       routes: {
         newsScreen.routeName:(context)=>newsScreen(),
         SettingTap.routeName:(context)=>SettingTap(),
+        ArtcileScreen.routeName:(context)=>ArtcileScreen(),
       },
     );
 }}
