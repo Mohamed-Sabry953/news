@@ -8,10 +8,10 @@ import 'package:news/Shared/constant/Constant.dart';
 
 class API_manager{
 
-  static Future<SourcesModel> getSources()async{
+  static Future<SourcesModel> getSources(String categoryId)async{
     Uri url=Uri.https("newsapi.org","/v2/top-headlines/sources",
     {
-      "apiKey":Constant.API_KEY
+      "apiKey":Constant.API_KEY,"category":categoryId
     });
     var response=await http.get(url);
     var jsonData=jsonDecode(response.body);

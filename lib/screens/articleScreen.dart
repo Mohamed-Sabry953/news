@@ -50,14 +50,6 @@ class ArtcileScreen extends StatelessWidget {
               padding: const EdgeInsets.only(right: 12,left: 12,bottom: 70),
               child: Row(
                 children: [
-                  Text('author :',style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  )),
-                  Text(args.author.substring(0,4),style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  )),
                   Spacer(),
                   Text(args.Time.substring(0,10),style: TextStyle(
                     fontSize: 16,

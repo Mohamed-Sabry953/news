@@ -63,7 +63,6 @@ class articleItem extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Text(articles.author?.substring(0, 4) ?? ''),
                   Spacer(),
                   Text(articles.publishedAt?.substring(0, 10) ?? ''),
                 ],

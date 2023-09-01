@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:news/provider/settingprovider.dart';
+import 'package:news/screens/CategoryScreen/homeLayout.dart';
 import 'package:news/screens/NewsScreen/NewsScreen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -34,11 +36,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(),
       themeMode: provider.mode,
       debugShowCheckedModeBanner: false,
-      initialRoute: newsScreen.routeName,
+      initialRoute: Categories.routeName,
       routes: {
         newsScreen.routeName:(context)=>newsScreen(),
         SettingTap.routeName:(context)=>SettingTap(),
         ArtcileScreen.routeName:(context)=>ArtcileScreen(),
+        Categories.routeName:(context)=>Categories(),
       },
     );
 }}

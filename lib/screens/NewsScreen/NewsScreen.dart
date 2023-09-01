@@ -1,23 +1,22 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:news/Models/categories_model.dart';
 import 'package:news/Shared/network/remote/API_manager.dart';
 import 'package:news/provider/settingprovider.dart';
+import 'package:news/screens/CategoryScreen/homeLayout.dart';
 import 'package:news/screens/NewsScreen/Surces_artcles.dart';
 import 'package:news/screens/SettingScreen.dart';
 import 'package:provider/provider.dart';
 
-class newsScreen extends StatefulWidget {
+class newsScreen extends StatelessWidget {
   static const String routeName = 'home';
-
-  @override
-  State<newsScreen> createState() => _newsScreenState();
-}
-
-class _newsScreenState extends State<newsScreen> {
   int currentindex = 0;
   bool vis = false;
 
   @override
   Widget build(BuildContext context) {
+    var provider=Provider.of<settingprovider>(context);
+  var args=ModalRoute.of(context)?.settings.arguments as CategoryModel;
     return Scaffold(
       drawer: Drawer(
           child: Container(
@@ -43,20 +42,23 @@ class _newsScreenState extends State<newsScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.menu_outlined, size: 35)),
-                  InkWell(
-                    onTap: () {},
-                    child: Text('categories',
+              child: InkWell(
+                onTap: (){
+                  Navigator.pushNamedAndRemoveUntil(context, Categories.routeName, (route) => false);
+                },
+                child: Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                        },
+                        icon: Icon(Icons.menu_outlined, size: 35)),
+                    Text('categories',
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w500,
-                            fontSize: 25)),
-                  )
-                ],
+                            fontSize: 25))
+                  ],
+                ),
               ),
             ),
             Padding(
@@ -86,16 +88,15 @@ class _newsScreenState extends State<newsScreen> {
       )),
       appBar: AppBar(
         backgroundColor: Color(0xff39A552),
-        title: Text('News'),
+        title: Text(args.Name),
         centerTitle: true,
         actions: [
           IconButton(
             onPressed: () {
-              vis = !vis;
-              setState(() {});
+              provider.changevis();
             },
             icon:
-                vis == true ? Icon(Icons.cancel_outlined) : Icon(Icons.search),
+                provider.visble == true ? Icon(Icons.cancel_outlined) : Icon(Icons.search),
             color: Colors.black,
           ),
           SizedBox(
@@ -111,7 +112,7 @@ class _newsScreenState extends State<newsScreen> {
             margin: const EdgeInsets.only(
                 top: 35.0, bottom: 15, left: 50, right: 20),
             child: Visibility(
-              visible: vis,
+              visible: provider.visble,
               child: TextFormField(
                 decoration: InputDecoration(
                     border: OutlineInputBorder(borderSide: BorderSide.none)),
@@ -137,7 +138,7 @@ class _newsScreenState extends State<newsScreen> {
                 ),
                 fit: BoxFit.fitHeight)),
         child: FutureBuilder(
-          future: API_manager.getSources(),
+          future: API_manager.getSources(args.id),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());

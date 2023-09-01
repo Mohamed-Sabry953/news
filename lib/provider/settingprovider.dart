@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 class settingprovider extends ChangeNotifier{
 ThemeMode mode=ThemeMode.light;
 String language='en';
 int Index=0;
+bool visble=false;
 changetheme(ThemeMode Theme){
   mode=Theme;
   notifyListeners();
@@ -15,6 +14,10 @@ changelanguage(String lang){
 }
 changecurrentIndex(int index){
   Index=index;
+  notifyListeners();
+}
+changevis(){
+  visble=!visble;
   notifyListeners();
 }
 }
