@@ -18,10 +18,10 @@ class API_manager{
     SourcesModel sourcesModel =SourcesModel.fromJson(jsonData);
     return sourcesModel;
   }
-  static Future<NewsModel> getNewsData(String sourceId)async{
+  static Future<NewsModel> getNewsData(String sourceId,String q)async{
     Uri url=Uri.https("newsapi.org","/v2/everything",
     {
-      "apiKey":Constant.API_KEY,"sources":sourceId
+      "apiKey":Constant.API_KEY,"sources":sourceId,"q":q
     });
     var response=await http.get(url);
     var jsonData=jsonDecode(response.body);

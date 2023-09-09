@@ -4,6 +4,9 @@ import 'package:news/Shared/network/remote/API_manager.dart';
 import 'package:news/screens/NewsScreen/article_item.dart';
 import 'package:news/screens/NewsScreen/source_item.dart';
 import 'package:news/themes/ThemeData.dart';
+import 'package:provider/provider.dart';
+
+import '../../provider/settingprovider.dart';
 
 class SourcesItemClick extends StatefulWidget {
   List<Sources> sources;
@@ -19,6 +22,7 @@ class _SourcesItemClickState extends State<SourcesItemClick> {
   int currentindex = 0;
 
   Widget build(BuildContext context) {
+    var provider=Provider.of<settingprovider>(context);
     return Column(
       children: [
         Container(
@@ -41,7 +45,7 @@ class _SourcesItemClickState extends State<SourcesItemClick> {
           ),
         ),
         FutureBuilder(
-          future: API_manager.getNewsData(widget.sources[currentindex].id??""),
+          future: API_manager.getNewsData(widget.sources[currentindex].id??"",provider.search),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());

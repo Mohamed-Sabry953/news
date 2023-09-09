@@ -38,7 +38,7 @@ class ArtcileScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Text(args.des,style: TextStyle(
+            Text(args.des,maxLines: 7,style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w400,
             ),),

@@ -4,7 +4,9 @@ ThemeMode mode=ThemeMode.light;
 String language='en';
 int Index=0;
 bool visble=false;
-changetheme(ThemeMode Theme){
+String search='';
+
+  changetheme(ThemeMode Theme){
   mode=Theme;
   notifyListeners();
 }
@@ -19,5 +21,8 @@ changecurrentIndex(int index){
 changevis(){
   visble=!visble;
   notifyListeners();
+}
+searchView(String pram){
+    search=pram;
 }
 }

@@ -8,9 +8,16 @@ import 'package:news/screens/NewsScreen/Surces_artcles.dart';
 import 'package:news/screens/SettingScreen.dart';
 import 'package:provider/provider.dart';
 
-class newsScreen extends StatelessWidget {
+class newsScreen extends StatefulWidget {
   static const String routeName = 'home';
+
+  @override
+  State<newsScreen> createState() => _newsScreenState();
+}
+
+class _newsScreenState extends State<newsScreen> {
   int currentindex = 0;
+
   bool vis = false;
 
   @override
@@ -45,6 +52,7 @@ class newsScreen extends StatelessWidget {
               child: InkWell(
                 onTap: (){
                   Navigator.pushNamedAndRemoveUntil(context, Categories.routeName, (route) => false);
+                  provider.search='';
                 },
                 child: Row(
                   children: [
@@ -114,6 +122,11 @@ class newsScreen extends StatelessWidget {
             child: Visibility(
               visible: provider.visble,
               child: TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                  provider.searchView(value);
+                  });
+                },
                 decoration: InputDecoration(
                     border: OutlineInputBorder(borderSide: BorderSide.none)),
               ),
